@@ -1,0 +1,9 @@
+{
+  "name": "lru",
+  "version": "0.0.0",
+  "description": "LRU",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  }
+}
