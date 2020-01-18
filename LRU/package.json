@@ -2,8 +2,14 @@
   "name": "lru",
   "version": "0.0.0",
   "description": "LRU",
-  "main": "app.js",
+  "main": "LRUCache.js",
   "author": {
-    "name": ""
+    "name": "Karthik Srinivasan"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
