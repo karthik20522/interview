@@ -1,0 +1,26 @@
+info:
+  contact: {}
+  license: {}
+paths:
+  /echo:
+    post:
+      consumes:
+      - multipart/form-data
+      operationId: file.upload
+      parameters:
+      - description: Comma Seperated Matrix data
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "200":
+          description: 1,2,3\n4,5,6\n7,8,9
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Echo File Data
+swagger: "2.0"
