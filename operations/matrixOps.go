@@ -49,7 +49,7 @@ func Flatten(records [][]string) string {
 	return response
 }
 
-//Invert Return the matrix as a string in matrix format where the columns and rows are inverted
+//Invert Return the matrix where the columns and rows are inverted
 func Invert(matrixArray [][]int) [][]int {
 	xl := len(matrixArray[0])
 	yl := len(matrixArray)

@@ -2,7 +2,6 @@ package utils
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 	"strings"
 )
@@ -30,7 +29,7 @@ func Matrix2String(matrixArray [][]int) string {
 }
 
 //ConvertCSVToMatrix Convert 2D Array of String to 2D array of Int's
-func ConvertCSVToMatrix(csvData [][]string) [][]int {
+func ConvertCSVToMatrix(csvData [][]string) ([][]int, error) {
 	xl := len(csvData[0])
 	yl := len(csvData)
 
@@ -49,11 +48,11 @@ func ConvertCSVToMatrix(csvData [][]string) [][]int {
 				valInt, err = strconv.Atoi(val)
 			}
 			if err != nil {
-				log.Fatal(err)
+				return nil, fmt.Errorf("Given value is not a number, %s", val)
 			}
 			csvMatrix[i][j] = valInt
 		}
 	}
 
-	return csvMatrix
+	return csvMatrix, nil
 }

@@ -19,7 +19,7 @@ import (
 // @Accept  multipart/form-data
 // @Param   file formData file true  "Comma Seperated Matrix data"
 // @Success 200 {string} string "1,2,3<br />4,5,6<br />7,8,9"
-// @Failure 500 {string} string "Internal Server Error"
+// @Failure 400 {string} string "Bad Request : Given value is not a number"
 // @Router /echo [post]
 func Echo(ctx *gin.Context) {
 	records, err := getCSVData(ctx)
@@ -43,7 +43,7 @@ func Echo(ctx *gin.Context) {
 // @Accept  multipart/form-data
 // @Param   file formData file true  "Comma Seperated Matrix data"
 // @Success 200 {string} string "1,2,3<br />4,5,6<br />7,8,9"
-// @Failure 500 {string} string "Internal Server Error"
+// @Failure 400 {string} string "Bad Request : Given value is not a number"
 // @Router /invert [post]
 func InvertMatrix(ctx *gin.Context) {
 	records, err := getCSVData(ctx)
@@ -52,7 +52,12 @@ func InvertMatrix(ctx *gin.Context) {
 		return
 	}
 
-	matrixArray := Utils.ConvertCSVToMatrix(records)
+	matrixArray, err := Utils.ConvertCSVToMatrix(records)
+	if err != nil {
+		ctx.String(http.StatusBadRequest, fmt.Sprintf(err.Error()))
+		return
+	}
+
 	ctx.String(http.StatusOK, fmt.Sprintf(Utils.Matrix2String(MatrixOps.Invert(matrixArray))))
 }
 
@@ -63,7 +68,7 @@ func InvertMatrix(ctx *gin.Context) {
 // @Accept  multipart/form-data
 // @Param   file formData file true  "Comma Seperated Matrix data"
 // @Success 200 {string} string "1,2,3,4,5,6,7,8,9"
-// @Failure 500 {string} string "Internal Server Error"
+// @Failure 400 {string} string "Bad Request : Given value is not a number"
 // @Router /flatten [post]
 func FlattenMatrix(ctx *gin.Context) {
 	records, err := getCSVData(ctx)
@@ -82,7 +87,7 @@ func FlattenMatrix(ctx *gin.Context) {
 // @Accept  multipart/form-data
 // @Param   file formData file true  "Comma Seperated Matrix data"
 // @Success 200 {string} string "45"
-// @Failure 500 {string} string "Internal Server Error"
+// @Failure 400 {string} string "Bad Request : Given value is not a number"
 // @Router /sum [post]
 func SumOfMatrix(ctx *gin.Context) {
 	records, err := getCSVData(ctx)
@@ -90,7 +95,11 @@ func SumOfMatrix(ctx *gin.Context) {
 		ctx.String(http.StatusBadRequest, fmt.Sprintf(err.Error()))
 		return
 	}
-	matrixArray := Utils.ConvertCSVToMatrix(records)
+	matrixArray, err := Utils.ConvertCSVToMatrix(records)
+	if err != nil {
+		ctx.String(http.StatusBadRequest, fmt.Sprintf(err.Error()))
+		return
+	}
 	matrixSum := MatrixOps.Sum(matrixArray)
 
 	ctx.String(http.StatusOK, fmt.Sprintf(strconv.Itoa(matrixSum)))
@@ -103,7 +112,7 @@ func SumOfMatrix(ctx *gin.Context) {
 // @Accept  multipart/form-data
 // @Param   file formData file true  "Comma Seperated Matrix data"
 // @Success 200 {string} string "362880"
-// @Failure 500 {string} string "Internal Server Error"
+// @Failure 400 {string} string "Bad Request : Given value is not a number"
 // @Router /multiply [post]
 func MultiplyMatrix(ctx *gin.Context) {
 	records, err := getCSVData(ctx)
@@ -111,12 +120,17 @@ func MultiplyMatrix(ctx *gin.Context) {
 		ctx.String(http.StatusBadRequest, fmt.Sprintf(err.Error()))
 		return
 	}
-	matrixArray := Utils.ConvertCSVToMatrix(records)
+	matrixArray, err := Utils.ConvertCSVToMatrix(records)
+	if err != nil {
+		ctx.String(http.StatusBadRequest, fmt.Sprintf(err.Error()))
+		return
+	}
 	matrixMultiply := MatrixOps.Multiply(matrixArray)
 
 	ctx.String(http.StatusOK, fmt.Sprintf(strconv.Itoa(matrixMultiply)))
 }
 
+//getCSVData Get CSV data from post file
 func getCSVData(c *gin.Context) ([][]string, error) {
 	file, err := c.FormFile("file")
 	if err != nil {
