@@ -6,7 +6,8 @@ paths:
     post:
       consumes:
       - multipart/form-data
-      operationId: file.upload
+      description: Return the matrix as a string in matrix format.
+      operationId: echo.upload
       parameters:
       - description: Comma Seperated Matrix data
         in: formData
@@ -15,12 +16,102 @@ paths:
         type: file
       responses:
         "200":
-          description: 1,2,3\n4,5,6\n7,8,9
+          description: 1,2,3<br />4,5,6<br />7,8,9
           schema:
             type: string
         "500":
           description: Internal Server Error
           schema:
             type: string
-      summary: Echo File Data
+      summary: Echo
+  /flatten:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Return the matrix as a 1 line string, with values separated by
+        commas.
+      operationId: flatten.upload
+      parameters:
+      - description: Comma Seperated Matrix data
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "200":
+          description: 1,2,3,4,5,6,7,8,9
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Flatten
+  /invert:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Return the matrix as a string in matrix format where the columns
+        and rows are inverted
+      operationId: invert.upload
+      parameters:
+      - description: Comma Seperated Matrix data
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "200":
+          description: 1,2,3<br />4,5,6<br />7,8,9
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Invert
+  /multiply:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Return the product of the integers in the matrix
+      operationId: multiply.upload
+      parameters:
+      - description: Comma Seperated Matrix data
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "200":
+          description: "362880"
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Multiply
+  /sum:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Return the sum of the integers in the matrix
+      operationId: sum.upload
+      parameters:
+      - description: Comma Seperated Matrix data
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "200":
+          description: "45"
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Sum
 swagger: "2.0"

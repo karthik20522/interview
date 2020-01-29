@@ -7,11 +7,12 @@
     "paths": {
         "/echo": {
             "post": {
+                "description": "Return the matrix as a string in matrix format.",
                 "consumes": [
                     "multipart/form-data"
                 ],
-                "summary": "Echo File Data",
-                "operationId": "file.upload",
+                "summary": "Echo",
+                "operationId": "echo.upload",
                 "parameters": [
                     {
                         "type": "file",
@@ -23,7 +24,139 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "1,2,3\\n4,5,6\\n7,8,9",
+                        "description": "1,2,3\u003cbr /\u003e4,5,6\u003cbr /\u003e7,8,9",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/flatten": {
+            "post": {
+                "description": "Return the matrix as a 1 line string, with values separated by commas.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "summary": "Flatten",
+                "operationId": "flatten.upload",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "Comma Seperated Matrix data",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1,2,3,4,5,6,7,8,9",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/invert": {
+            "post": {
+                "description": "Return the matrix as a string in matrix format where the columns and rows are inverted",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "summary": "Invert",
+                "operationId": "invert.upload",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "Comma Seperated Matrix data",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1,2,3\u003cbr /\u003e4,5,6\u003cbr /\u003e7,8,9",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/multiply": {
+            "post": {
+                "description": "Return the product of the integers in the matrix",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "summary": "Multiply",
+                "operationId": "multiply.upload",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "Comma Seperated Matrix data",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "362880",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/sum": {
+            "post": {
+                "description": "Return the sum of the integers in the matrix",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "summary": "Sum",
+                "operationId": "sum.upload",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "Comma Seperated Matrix data",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "45",
                         "schema": {
                             "type": "string"
                         }
