@@ -12,7 +12,6 @@ import (
 
 func main() {
 
-	//swagger info
 	docs.SwaggerInfo.Title = "League Backend Challenge"
 	docs.SwaggerInfo.Description = "Matrix API Service"
 	docs.SwaggerInfo.Version = "1.0"
